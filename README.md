@@ -1,3 +1,1 @@
-��# XelaTech 
-Proyecto Programacion
-le damos los commits un poco tarde jajja
+# XelaTech Proyecto Programacion-
