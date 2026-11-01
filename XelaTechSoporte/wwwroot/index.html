@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XelaTech Soporte</title>
+    <link rel="icon" href="img/logo.svg">
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+    <!-- La barra superior se arma en comun.js -->
+    <header id="barra"></header>
+
+    <!-- Panel del administrador: un boton por cada modulo del menu de consola -->
+    <main class="panel">
+        <a class="mosaico" href="clientes.html">
+            <div class="cuadro" style="background: var(--c-clientes)"><img src="img/clientes.svg" alt=""></div>
+            <span>Clientes</span>
+        </a>
+        <a class="mosaico" href="tecnicos.html">
+            <div class="cuadro" style="background: var(--c-tecnicos)"><img src="img/tecnicos.svg" alt=""></div>
+            <span>Técnicos</span>
+        </a>
+        <a class="mosaico" href="equipos.html">
+            <div class="cuadro" style="background: var(--c-equipos)"><img src="img/equipos.svg" alt=""></div>
+            <span>Equipos</span>
+        </a>
+        <a class="mosaico" href="solicitudes.html">
+            <div class="cuadro" style="background: var(--c-solicitudes)"><img src="img/solicitudes.svg" alt=""></div>
+            <span>Solicitudes</span>
+        </a>
+        <a class="mosaico" href="repuestos.html">
+            <div class="cuadro" style="background: var(--c-repuestos)"><img src="img/repuestos.svg" alt=""></div>
+            <span>Repuestos</span>
+        </a>
+        <a class="mosaico" href="colas.html">
+            <div class="cuadro" style="background: var(--c-colas)"><img src="img/colas.svg" alt=""></div>
+            <span>Atención Colas</span>
+        </a>
+        <a class="mosaico" href="ordenamientos.html">
+            <div class="cuadro" style="background: var(--c-ordenamientos)"><img src="img/ordenamientos.svg" alt=""></div>
+            <span>Ordenamientos</span>
+        </a>
+        <a class="mosaico" href="busquedas.html">
+            <div class="cuadro" style="background: var(--c-busquedas)"><img src="img/busquedas.svg" alt=""></div>
+            <span>Búsquedas</span>
+        </a>
+        <a class="mosaico" href="reportes.html">
+            <div class="cuadro" style="background: var(--c-reportes)"><img src="img/reportes.svg" alt=""></div>
+            <span>Reportes</span>
+        </a>
+    </main>
+
+    <script src="js/comun.js"></script>
+    <script>
+        dibujarBarra(false);
+    </script>
+</body>
+</html>
