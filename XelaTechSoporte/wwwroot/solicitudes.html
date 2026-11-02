@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solicitudes - XelaTech Soporte</title>
+    <link rel="icon" href="img/logo.svg">
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body class="solicitudes">
+    <header id="barra"></header>
+
+    <div class="encabezado">
+        <a class="volver" href="index.html">← Volver al panel</a>
+        <h1 class="titulo-modulo"><span class="mini"><img src="img/solicitudes.svg" alt=""></span> Gestión de solicitudes</h1>
+        <p class="descripcion">Recibida → En espera → Asignada → En diagnóstico → En reparación → Lista para entregar → Entregada (o Cancelada).</p>
+    </div>
+
+    <main class="contenido">
+        <!-- Crear -->
+        <section class="tarjeta">
+            <h2>Nueva solicitud</h2>
+            <label for="cliente">Cliente</label>
+            <select id="cliente" onchange="cargarEquiposDelCliente()"></select>
+
+            <label for="equipo">Equipo</label>
+            <select id="equipo">
+                <option value="">Primero seleccione un cliente</option>
+            </select>
+
+            <label for="descripcion">Descripción del problema</label>
+            <textarea id="descripcion"></textarea>
+
+            <label>Prioridad</label>
+            <div class="opciones" id="grupoPrioridad">
+                <button class="activo" data-valor="Normal" onclick="elegirOpcion(this)">Normal</button>
+                <button data-valor="Urgente" onclick="elegirOpcion(this)">Urgente</button>
+            </div>
+
+            <button class="boton" onclick="crearSolicitud()">Crear solicitud</button>
+            <p class="ayuda">La solicitud entra a la cola de su prioridad con estado "En espera".</p>
+        </section>
+
+        <!-- Abrir una solicitud -->
+        <section class="tarjeta">
+            <h2>Trabajar una solicitud</h2>
+            <label for="codigo">Código de la solicitud</label>
+            <div class="fila">
+                <input type="text" id="codigo" placeholder="SOL-0001">
+                <div><button class="boton" style="margin-top:0" onclick="abrirSolicitud()">Abrir</button></div>
+            </div>
+            <p class="ayuda">Al abrirla puede registrar diagnóstico y repuestos, cambiar el estado, ver el historial,
+                deshacer el último cambio, entregar o cancelar.</p>
+        </section>
+
+        <!-- Detalle -->
+        <section class="tarjeta ancha oculto" id="detalle">
+            <h2 id="tituloDetalle">Solicitud</h2>
+
+            <div class="contenido" style="padding:0; max-width:none">
+                <div class="ficha" style="margin-top:0">
+                    <dl>
+                        <dt>Estado</dt><dd id="dEstado"></dd>
+                        <dt>Prioridad</dt><dd id="dPrioridad"></dd>
+                        <dt>Cliente</dt><dd id="dCliente"></dd>
+                        <dt>Equipo</dt><dd id="dEquipo"></dd>
+                        <dt>Problema</dt><dd id="dProblema"></dd>
+                        <dt>Recibida</dt><dd id="dFecha"></dd>
+                        <dt>Técnico</dt><dd id="dTecnico"></dd>
+                        <dt>Diagnóstico</dt><dd id="dDiagnostico"></dd>
+                        <dt>Tiempo estimado</dt><dd id="dHoras"></dd>
+                        <dt>Mano de obra</dt><dd id="dManoObra"></dd>
+                        <dt>Repuestos</dt><dd id="dRepuestos"></dd>
+                        <dt>TOTAL</dt><dd id="dTotal"></dd>
+                    </dl>
+                </div>
+                <div>
+                    <h3 style="margin-top:0">Historial de estados (pila)</h3>
+                    <p class="ayuda">El de arriba es el tope: es el que se recupera al deshacer.</p>
+                    <div class="pila" id="pila"></div>
+                    <p class="ayuda" id="permitidos"></p>
+                </div>
+            </div>
+
+            <h3>Repuestos usados</h3>
+            <div id="tablaRepuestosUsados"></div>
+
+            <div class="acciones-solicitud">
+                <div class="bloque">
+                    <h3>1. Diagnóstico</h3>
+                    <p class="ayuda" id="sugerencia"></p>
+                    <label for="textoDiagnostico">Diagnóstico</label>
+                    <textarea id="textoDiagnostico"></textarea>
+                    <label for="horas">Tiempo estimado (horas)</label>
+                    <input type="number" id="horas" min="1" value="2">
+                    <button class="boton" onclick="registrarDiagnostico()">Registrar diagnóstico</button>
+                </div>
+
+                <div class="bloque">
+                    <h3>2. Repuestos</h3>
+                    <label for="repuesto">Repuesto</label>
+                    <select id="repuesto"></select>
+                    <label for="cantidadRepuesto">Cantidad</label>
+                    <input type="number" id="cantidadRepuesto" min="1" value="1">
+                    <button class="boton" onclick="agregarRepuesto()">Agregar repuesto</button>
+                </div>
+
+                <div class="bloque">
+                    <h3>3. Estado</h3>
+                    <label for="nuevoEstado">Nuevo estado</label>
+                    <select id="nuevoEstado">
+                        <option value="0">Recibida</option>
+                        <option value="1">En espera</option>
+                        <option value="2">Asignada</option>
+                        <option value="3">En diagnóstico</option>
+                        <option value="4" selected>En reparación</option>
+                        <option value="5">Lista para entregar</option>
+                        <option value="6">Entregada</option>
+                        <option value="7">Cancelada</option>
+                    </select>
+                    <div class="botones">
+                        <button class="boton" onclick="cambiarEstado()">Cambiar estado</button>
+                        <button class="boton secundario" onclick="deshacer()">Deshacer último cambio</button>
+                    </div>
+                </div>
+
+                <div class="bloque">
+                    <h3>4. Entrega o cancelación</h3>
+                    <label for="calificacionEntrega">Calificación del cliente</label>
+                    <select id="calificacionEntrega">
+                        <option value="5">5 - Excelente</option>
+                        <option value="4">4 - Muy bueno</option>
+                        <option value="3">3 - Bueno</option>
+                        <option value="2">2 - Regular</option>
+                        <option value="1">1 - Malo</option>
+                        <option value="0">No desea calificar</option>
+                    </select>
+                    <div class="botones">
+                        <button class="boton exito" onclick="entregar()">Entregar equipo</button>
+                        <button class="boton peligro" onclick="cancelar()">Cancelar solicitud</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Listado -->
+        <section class="tarjeta ancha">
+            <h2>Todas las solicitudes</h2>
+            <div id="tablaSolicitudes"></div>
+        </section>
+    </main>
+
+    <script src="js/comun.js"></script>
+    <script src="js/solicitudes.js"></script>
+</body>
+</html>

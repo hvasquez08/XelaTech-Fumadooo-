@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atención de colas - XelaTech Soporte</title>
+    <link rel="icon" href="img/logo.svg">
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body class="colas">
+    <header id="barra"></header>
+
+    <div class="encabezado">
+        <a class="volver" href="index.html">← Volver al panel</a>
+        <h1 class="titulo-modulo"><span class="mini"><img src="img/colas.svg" alt=""></span> Atención de colas</h1>
+        <p class="descripcion">Se atiende primero la cola urgente y, cuando está vacía, la normal. Dentro de cada cola, el primero que llega es el primero que se atiende (FIFO).</p>
+    </div>
+
+    <main class="contenido">
+        <section class="tarjeta ancha">
+            <div class="contadores">
+                <div class="contador urgente"><span class="numero" id="numUrgente">0</span>en cola urgente</div>
+                <div class="contador normal"><span class="numero" id="numNormal">0</span>en cola normal</div>
+                <button class="boton" style="margin-top:0; padding:16px 26px; font-size:17px; color:#3b2a00" onclick="atenderSiguiente()">Atender siguiente</button>
+            </div>
+        </section>
+
+        <section class="tarjeta">
+            <h2>Cola urgente</h2>
+            <div id="tablaUrgente"></div>
+        </section>
+
+        <section class="tarjeta">
+            <h2>Cola normal</h2>
+            <div id="tablaNormal"></div>
+        </section>
+
+        <section class="tarjeta ancha">
+            <h2>Matriz semanal de carga (técnicos x días)</h2>
+            <div class="tabla-contenedor">
+                <table class="matriz" id="matriz"></table>
+            </div>
+            <div class="mayor-carga" id="mayorCarga"></div>
+        </section>
+    </main>
+
+    <script src="js/comun.js"></script>
+    <script src="js/colas.js"></script>
+</body>
+</html>
