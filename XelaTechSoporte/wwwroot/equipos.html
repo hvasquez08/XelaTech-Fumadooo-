@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equipos - XelaTech Soporte</title>
+    <link rel="icon" href="img/logo.svg">
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body class="equipos">
+    <header id="barra"></header>
+
+    <div class="encabezado">
+        <a class="volver" href="index.html">← Volver al panel</a>
+        <h1 class="titulo-modulo"><span class="mini"><img src="img/equipos.svg" alt=""></span> Gestión de equipos</h1>
+        <p class="descripcion">Laptop, Escritorio e Impresora heredan de la clase Equipo. Cada tipo calcula su propio costo de revisión.</p>
+    </div>
+
+    <main class="contenido">
+        <section class="tarjeta ancha">
+            <h2>Registrar equipo</h2>
+
+            <label>Tipo de equipo</label>
+            <div class="opciones" id="grupoTipo">
+                <button class="activo" data-valor="laptop" onclick="elegirTipo(this)">Laptop (Q150)</button>
+                <button data-valor="escritorio" onclick="elegirTipo(this)">Escritorio (Q100)</button>
+                <button data-valor="impresora" onclick="elegirTipo(this)">Impresora (Q80)</button>
+            </div>
+
+            <div class="fila">
+                <div>
+                    <label for="propietario">Propietario</label>
+                    <select id="propietario"></select>
+                </div>
+                <div>
+                    <label for="serie">Número de serie</label>
+                    <input type="text" id="serie">
+                </div>
+                <div>
+                    <label for="marca">Marca</label>
+                    <input type="text" id="marca">
+                </div>
+                <div>
+                    <label for="modelo">Modelo</label>
+                    <input type="text" id="modelo">
+                </div>
+                <div>
+                    <label for="estadoFisico">Estado físico recibido</label>
+                    <input type="text" id="estadoFisico" placeholder="Bueno, con golpes, rayones...">
+                </div>
+                <div>
+                    <label for="accesorios">Accesorios entregados</label>
+                    <input type="text" id="accesorios" placeholder="Cargador, cable... (opcional)">
+                </div>
+            </div>
+
+            <!-- Datos propios de cada tipo -->
+            <div id="datosLaptop" class="fila">
+                <div>
+                    <label for="pulgadas">Pantalla (pulgadas)</label>
+                    <input type="number" id="pulgadas" min="10" max="20" step="0.1" value="15.6">
+                </div>
+                <div>
+                    <label for="bateria">Estado de batería</label>
+                    <select id="bateria">
+                        <option>Buena</option>
+                        <option>Regular</option>
+                        <option>Mala</option>
+                        <option>No retiene carga</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="datosEscritorio" class="fila oculto">
+                <div>
+                    <label for="gabinete">Tipo de gabinete</label>
+                    <select id="gabinete">
+                        <option>Torre</option>
+                        <option>Mini torre</option>
+                        <option>Todo en uno</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="fuenteExterna">Fuente de poder</label>
+                    <select id="fuenteExterna">
+                        <option value="false">Interna</option>
+                        <option value="true">Externa</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="datosImpresora" class="fila oculto">
+                <div>
+                    <label for="tecnologia">Tecnología</label>
+                    <select id="tecnologia">
+                        <option>Tinta</option>
+                        <option>Láser</option>
+                        <option>Matricial</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="tinta">Nivel de tinta/tóner (%)</label>
+                    <input type="number" id="tinta" min="0" max="100" value="50">
+                </div>
+            </div>
+
+            <button class="boton" onclick="registrarEquipo()">Registrar equipo</button>
+        </section>
+
+        <section class="tarjeta ancha">
+            <h2>Listado de equipos</h2>
+            <div id="tablaEquipos"></div>
+        </section>
+    </main>
+
+    <script src="js/comun.js"></script>
+    <script src="js/equipos.js"></script>
+</body>
+</html>
