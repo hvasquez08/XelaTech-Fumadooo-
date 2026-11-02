@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Técnicos - XelaTech Soporte</title>
+    <link rel="icon" href="img/logo.svg">
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body class="tecnicos">
+    <header id="barra"></header>
+
+    <div class="encabezado">
+        <a class="volver" href="index.html">← Volver al panel</a>
+        <h1 class="titulo-modulo"><span class="mini"><img src="img/tecnicos.svg" alt=""></span> Gestión de técnicos</h1>
+        <p class="descripcion">Cada técnico puede tener como máximo 3 trabajos activos a la vez.</p>
+    </div>
+
+    <main class="contenido">
+        <!-- Registrar -->
+        <section class="tarjeta">
+            <h2>Registrar técnico</h2>
+            <label for="nombre">Nombre completo</label>
+            <input type="text" id="nombre">
+
+            <div class="fila">
+                <div>
+                    <label for="especialidad">Especialidad</label>
+                    <select id="especialidad">
+                        <option value="0">Computadoras</option>
+                        <option value="1">Impresoras</option>
+                        <option value="2">General</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="disponible">Disponibilidad</label>
+                    <select id="disponible">
+                        <option value="true">Disponible</option>
+                        <option value="false">No disponible</option>
+                    </select>
+                </div>
+            </div>
+
+            <button class="boton" onclick="registrarTecnico()">Registrar</button>
+            <p class="ayuda">General puede atender cualquier equipo.</p>
+        </section>
+
+        <!-- Consultar -->
+        <section class="tarjeta">
+            <h2>Consultar técnico</h2>
+            <label for="codigoConsulta">Código del técnico</label>
+            <div class="fila">
+                <input type="text" id="codigoConsulta" placeholder="TEC-001">
+                <div><button class="boton" style="margin-top:0" onclick="consultarTecnico()">Consultar</button></div>
+            </div>
+
+            <div id="ficha" class="ficha oculto">
+                <dl>
+                    <dt>Código</dt><dd id="fCodigo"></dd>
+                    <dt>Nombre</dt><dd id="fNombre"></dd>
+                    <dt>Especialidad</dt><dd id="fEspecialidad"></dd>
+                    <dt>Disponible</dt><dd id="fDisponible"></dd>
+                    <dt>Trabajos activos</dt><dd id="fActivos"></dd>
+                    <dt>Finalizados</dt><dd id="fFinalizados"></dd>
+                    <dt>Promedio</dt><dd id="fPromedio"></dd>
+                </dl>
+                <h3>Calificaciones recibidas (arreglo de 5 posiciones)</h3>
+                <div class="barras" id="barrasCalificaciones"></div>
+                <button class="boton secundario" onclick="cambiarDisponibilidad()">Cambiar disponibilidad</button>
+            </div>
+        </section>
+
+        <!-- Calificacion -->
+        <section class="tarjeta">
+            <h2>Registrar calificación</h2>
+            <p class="ayuda">Solo se califica una solicitud ENTREGADA que todavía no tenga calificación.</p>
+            <div class="fila">
+                <div>
+                    <label for="solicitud">Código de solicitud</label>
+                    <input type="text" id="solicitud" placeholder="SOL-0001">
+                </div>
+                <div>
+                    <label for="calificacion">Calificación</label>
+                    <select id="calificacion">
+                        <option value="5">5 - Excelente</option>
+                        <option value="4">4 - Muy bueno</option>
+                        <option value="3">3 - Bueno</option>
+                        <option value="2">2 - Regular</option>
+                        <option value="1">1 - Malo</option>
+                    </select>
+                </div>
+            </div>
+            <button class="boton" onclick="registrarCalificacion()">Calificar</button>
+        </section>
+
+        <!-- Listado -->
+        <section class="tarjeta ancha">
+            <h2>Técnicos y especialidades</h2>
+            <div id="tablaTecnicos"></div>
+        </section>
+    </main>
+
+    <script src="js/comun.js"></script>
+    <script src="js/tecnicos.js"></script>
+</body>
+</html>

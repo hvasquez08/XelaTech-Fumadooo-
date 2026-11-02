@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal del cliente - XelaTech Soporte</title>
+    <link rel="icon" href="img/logo.svg">
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+    <header id="barra"></header>
+
+    <h1 class="portal-titulo">PORTAL DEL CLIENTE</h1>
+
+    <main class="portal">
+        <!-- Registro de cliente (mismas validaciones que la consola) -->
+        <section class="panel-portal">
+            <div class="cabecera">REGISTRO DE CLIENTE</div>
+            <div class="cuerpo">
+                <label for="nombre">Nombre Completo</label>
+                <input type="text" id="nombre">
+
+                <label for="telefono">Teléfono</label>
+                <input type="text" id="telefono" maxlength="8" placeholder="8 dígitos">
+
+                <label for="correo">Correo Electrónico</label>
+                <input type="text" id="correo" placeholder="nombre@correo.com">
+
+                <label for="tipo">Tipo de Cliente</label>
+                <select id="tipo">
+                    <option value="0">Estudiante</option>
+                    <option value="1">Profesional</option>
+                    <option value="2">Pequeño negocio</option>
+                    <option value="3">Institución</option>
+                </select>
+
+                <button class="boton-registrar" onclick="registrar()">Registrar</button>
+                <div class="mensaje-registro oculto" id="mensajeRegistro"></div>
+            </div>
+        </section>
+
+        <!-- Estado de servicio (busqueda binaria por codigo) -->
+        <section class="panel-portal">
+            <div class="cabecera">ESTADO DE SERVICIO</div>
+            <div class="cuerpo">
+                <div class="buscador">
+                    <input type="text" id="codigo" placeholder="Buscar por código (ej. SOL-0024)..."
+                           onkeydown="if (event.key === 'Enter') consultarEstado()">
+                    <button onclick="consultarEstado()" title="Buscar"><img src="img/busquedas.svg" alt="Buscar" style="filter: invert(0.35)"></button>
+                </div>
+
+                <div class="resultado-estado" id="resultado">
+                    <p style="color: var(--texto-suave)">Escriba el código de su solicitud para ver cómo va su equipo.</p>
+                </div>
+
+                <div style="text-align:center">
+                    <a class="volver-menu" href="index.html"><span class="flecha-verde">←</span> Volver al menú</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="js/comun.js"></script>
+    <script src="js/cliente.js"></script>
+</body>
+</html>
