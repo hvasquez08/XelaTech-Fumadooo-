@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Búsquedas - XelaTech Soporte</title>
+    <link rel="icon" href="img/logo.svg">
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body class="busquedas">
+    <header id="barra"></header>
+
+    <div class="encabezado">
+        <a class="volver" href="index.html">← Volver al panel</a>
+        <h1 class="titulo-modulo"><span class="mini"><img src="img/busquedas.svg" alt=""></span> Búsquedas</h1>
+        <p class="descripcion">Secuencial: recorre toda la lista y muestra todas las coincidencias. Binaria: parte la lista ordenada por código en mitades.</p>
+    </div>
+
+    <main class="contenido">
+        <section class="tarjeta">
+            <h2>Secuencial: clientes por nombre</h2>
+            <label for="textoNombre">Parte del nombre</label>
+            <input type="text" id="textoNombre" placeholder="Ej. López">
+            <button class="boton" onclick="buscar('nombre', valor('textoNombre'))">Buscar</button>
+        </section>
+
+        <section class="tarjeta">
+            <h2>Secuencial: solicitudes por estado</h2>
+            <label for="estado">Estado</label>
+            <select id="estado">
+                <option value="0">Recibida</option>
+                <option value="1">En espera</option>
+                <option value="2">Asignada</option>
+                <option value="3">En diagnóstico</option>
+                <option value="4">En reparación</option>
+                <option value="5">Lista para entregar</option>
+                <option value="6">Entregada</option>
+                <option value="7">Cancelada</option>
+            </select>
+            <button class="boton" onclick="buscar('estado', valor('estado'))">Buscar</button>
+        </section>
+
+        <section class="tarjeta">
+            <h2>Secuencial: equipos por marca</h2>
+            <label for="textoMarca">Marca</label>
+            <input type="text" id="textoMarca" placeholder="Ej. HP">
+            <button class="boton" onclick="buscar('marca', valor('textoMarca'))">Buscar</button>
+        </section>
+
+        <section class="tarjeta">
+            <h2>Binaria: solicitud por código</h2>
+            <label for="textoCodigo">Código</label>
+            <input type="text" id="textoCodigo" placeholder="Ej. SOL-0005">
+            <button class="boton" onclick="buscar('codigo', valor('textoCodigo'))">Buscar</button>
+        </section>
+
+        <section class="tarjeta ancha">
+            <h2>Resultados</h2>
+            <p id="mensajeBusqueda" class="ayuda"></p>
+            <div id="tablaResultados"><p class="vacio">Realice una búsqueda.</p></div>
+        </section>
+    </main>
+
+    <script src="js/comun.js"></script>
+    <script>
+        // Pagina de busquedas: usa la clase Buscador de C#
+        dibujarBarra(false);
+
+        async function buscar(tipo, texto) {
+            const respuesta = await llamarApi("/api/buscar", { tipo: tipo, texto: texto });
+            if (!respuesta.ok) {
+                mostrarAviso(respuesta.mensaje, true);
+                return;
+            }
+            document.getElementById("mensajeBusqueda").textContent = respuesta.mensaje;
+            dibujarTabla("tablaResultados", respuesta.columnas, respuesta.filas);
+        }
+    </script>
+</body>
+</html>

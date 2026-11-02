@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ordenamientos - XelaTech Soporte</title>
+    <link rel="icon" href="img/logo.svg">
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body class="ordenamientos">
+    <header id="barra"></header>
+
+    <div class="encabezado">
+        <a class="volver" href="index.html">← Volver al panel</a>
+        <h1 class="titulo-modulo"><span class="mini"><img src="img/ordenamientos.svg" alt=""></span> Ordenamientos</h1>
+        <p class="descripcion">Los cuatro algoritmos están programados a mano en la clase Ordenador (sin Sort ni OrderBy) y ordenan una copia de la lista.</p>
+    </div>
+
+    <main class="contenido">
+        <section class="tarjeta">
+            <h2>Elegir algoritmo</h2>
+            <label for="algoritmo">Algoritmo</label>
+            <select id="algoritmo" onchange="mostrarExplicacion()">
+                <option value="bubble">Bubble Sort - solicitudes por costo total</option>
+                <option value="quick">Quick Sort - solicitudes por fecha de recepción</option>
+                <option value="selection">Selection Sort - técnicos por servicios finalizados</option>
+                <option value="shell">Shell Sort - repuestos por existencia</option>
+            </select>
+
+            <label>Orden</label>
+            <div class="opciones" id="grupoOrden">
+                <button class="activo" data-valor="asc" onclick="elegirOpcion(this)">Ascendente</button>
+                <button data-valor="desc" onclick="elegirOpcion(this)">Descendente</button>
+            </div>
+
+            <button class="boton" onclick="ordenar()">Ordenar</button>
+        </section>
+
+        <section class="tarjeta">
+            <h2>¿Cómo funciona?</h2>
+            <p id="explicacion"></p>
+        </section>
+
+        <section class="tarjeta ancha">
+            <h2>Resultado</h2>
+            <div class="info-orden" id="infoOrden"></div>
+            <div id="tablaResultado"><p class="vacio">Elija un algoritmo y presione Ordenar.</p></div>
+        </section>
+    </main>
+
+    <script src="js/comun.js"></script>
+    <script src="js/ordenamientos.js"></script>
+</body>
+</html>
