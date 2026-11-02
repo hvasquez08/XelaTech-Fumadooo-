@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clientes - XelaTech Soporte</title>
+    <link rel="icon" href="img/logo.svg">
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body class="clientes">
+    <header id="barra"></header>
+
+    <div class="encabezado">
+        <a class="volver" href="index.html">← Volver al panel</a>
+        <h1 class="titulo-modulo"><span class="mini"><img src="img/clientes.svg" alt=""></span> Gestión de clientes</h1>
+    </div>
+
+    <main class="contenido">
+        <!-- Registrar -->
+        <section class="tarjeta">
+            <h2>Registrar cliente</h2>
+            <label for="nombre">Nombre completo</label>
+            <input type="text" id="nombre">
+
+            <div class="fila">
+                <div>
+                    <label for="telefono">Teléfono (8 dígitos)</label>
+                    <input type="text" id="telefono" maxlength="8">
+                </div>
+                <div>
+                    <label for="tipo">Tipo de cliente</label>
+                    <select id="tipo">
+                        <option value="0">Estudiante</option>
+                        <option value="1">Profesional</option>
+                        <option value="2">Pequeño negocio</option>
+                        <option value="3">Institución</option>
+                    </select>
+                </div>
+            </div>
+
+            <label for="correo">Correo electrónico</label>
+            <input type="text" id="correo">
+
+            <button class="boton" onclick="registrarCliente()">Registrar</button>
+            <p class="ayuda">El código del cliente se genera automáticamente.</p>
+        </section>
+
+        <!-- Consultar y actualizar -->
+        <section class="tarjeta">
+            <h2>Consultar / actualizar</h2>
+            <label for="codigoConsulta">Código del cliente</label>
+            <div class="fila">
+                <input type="text" id="codigoConsulta" placeholder="CLI-0001">
+                <div><button class="boton" style="margin-top:0" onclick="consultarCliente()">Consultar</button></div>
+            </div>
+
+            <div id="ficha" class="ficha oculto">
+                <dl>
+                    <dt>Código</dt><dd id="fCodigo"></dd>
+                    <dt>Nombre</dt><dd id="fNombre"></dd>
+                    <dt>Teléfono</dt><dd id="fTelefono"></dd>
+                    <dt>Correo</dt><dd id="fCorreo"></dd>
+                    <dt>Tipo</dt><dd id="fTipo"></dd>
+                    <dt>Solicitudes</dt><dd id="fSolicitudes"></dd>
+                </dl>
+
+                <h3>Actualizar datos</h3>
+                <div class="fila">
+                    <div>
+                        <label for="nuevoTelefono">Nuevo teléfono</label>
+                        <input type="text" id="nuevoTelefono" maxlength="8">
+                    </div>
+                    <div>
+                        <label for="nuevoCorreo">Nuevo correo</label>
+                        <input type="text" id="nuevoCorreo">
+                    </div>
+                </div>
+                <p class="ayuda">Deje un campo vacío para conservar el dato actual.</p>
+                <button class="boton" onclick="actualizarCliente()">Guardar cambios</button>
+            </div>
+        </section>
+
+        <!-- Detalle del cliente consultado -->
+        <section class="tarjeta ancha oculto" id="detalleCliente">
+            <h2>Equipos y solicitudes del cliente</h2>
+            <h3>Equipos</h3>
+            <div id="tablaEquiposCliente"></div>
+            <h3>Solicitudes</h3>
+            <div id="tablaSolicitudesCliente"></div>
+        </section>
+
+        <!-- Listado -->
+        <section class="tarjeta ancha">
+            <h2>Listado de clientes</h2>
+            <div id="tablaClientes"></div>
+        </section>
+    </main>
+
+    <script src="js/comun.js"></script>
+    <script src="js/clientes.js"></script>
+</body>
+</html>
