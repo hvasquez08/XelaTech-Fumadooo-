@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reportes - XelaTech Soporte</title>
+    <link rel="icon" href="img/logo.svg">
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body class="reportes">
+    <header id="barra"></header>
+
+    <div class="encabezado">
+        <a class="volver" href="index.html">← Volver al panel</a>
+        <h1 class="titulo-modulo"><span class="mini"><img src="img/reportes.svg" alt=""></span> Reportes</h1>
+        <p class="descripcion">Es el mismo texto que genera la clase Reportes para la consola, calculado con los datos actuales.</p>
+    </div>
+
+    <div class="diseno-reportes">
+        <aside class="tarjeta">
+            <h2>12 reportes mínimos</h2>
+            <div class="lista-reportes" id="listaReportes">
+                <button onclick="verReporte(1, this)">1. Solicitudes en espera por prioridad</button>
+                <button onclick="verReporte(2, this)">2. Activas, finalizadas y canceladas</button>
+                <button onclick="verReporte(3, this)">3. Técnicos disponibles y con carga completa</button>
+                <button onclick="verReporte(4, this)">4. Técnico con más servicios finalizados</button>
+                <button onclick="verReporte(5, this)">5. Equipos atendidos por tipo</button>
+                <button onclick="verReporte(6, this)">6. Solicitudes por costo (Bubble)</button>
+                <button onclick="verReporte(7, this)">7. Solicitudes por fecha (Quick)</button>
+                <button onclick="verReporte(8, this)">8. Repuestos por existencia (Shell)</button>
+                <button onclick="verReporte(9, this)">9. Repuestos en mínimo o agotados</button>
+                <button onclick="verReporte(10, this)">10. Ingresos totales</button>
+                <button onclick="verReporte(11, this)">11. Resultados de las búsquedas</button>
+                <button onclick="verReporte(12, this)">12. Matriz semanal de carga</button>
+            </div>
+
+            <h3>Orden (reportes 6, 7 y 8)</h3>
+            <div class="opciones" id="grupoOrden">
+                <button data-valor="asc" onclick="elegirOpcion(this); repetir()">Ascendente</button>
+                <button class="activo" data-valor="desc" onclick="elegirOpcion(this); repetir()">Descendente</button>
+            </div>
+
+            <h3>Datos para el reporte 11</h3>
+            <label for="r11Nombre">Nombre de cliente contiene</label>
+            <input type="text" id="r11Nombre" value="a">
+            <label for="r11Estado">Estado de solicitud</label>
+            <select id="r11Estado">
+                <option value="0">Recibida</option>
+                <option value="1">En espera</option>
+                <option value="2">Asignada</option>
+                <option value="3">En diagnóstico</option>
+                <option value="4" selected>En reparación</option>
+                <option value="5">Lista para entregar</option>
+                <option value="6">Entregada</option>
+                <option value="7">Cancelada</option>
+            </select>
+            <label for="r11Marca">Marca de equipo</label>
+            <input type="text" id="r11Marca" value="HP">
+            <label for="r11Codigo">Código para búsqueda binaria</label>
+            <input type="text" id="r11Codigo" value="SOL-0001">
+        </aside>
+
+        <section class="tarjeta">
+            <h2 id="tituloReporte">Seleccione un reporte</h2>
+            <pre class="reporte" id="textoReporte"></pre>
+        </section>
+    </div>
+
+    <script src="js/comun.js"></script>
+    <script>
+        // Pagina de reportes: usa la clase Reportes de C#
+        dibujarBarra(false);
+
+        let reporteActual = 0;
+
+        async function verReporte(numero, boton) {
+            reporteActual = numero;
+            elegirOpcion(boton);
+            document.getElementById("tituloReporte").textContent = boton.textContent;
+
+            const respuesta = await llamarApi("/api/reporte", {
+                numero: numero,
+                orden: opcionElegida("grupoOrden"),
+                nombre: valor("r11Nombre"),
+                estado: valor("r11Estado"),
+                marca: valor("r11Marca"),
+                codigo: valor("r11Codigo")
+            });
+
+            if (respuesta.ok) {
+                document.getElementById("textoReporte").textContent = respuesta.texto;
+            } else {
+                document.getElementById("textoReporte").textContent = "No se pudo generar el reporte:\n" + respuesta.mensaje;
+            }
+        }
+
+        // Al cambiar el orden se vuelve a pedir el mismo reporte
+        function repetir() {
+            if (reporteActual === 0) return;
+            const boton = document.querySelectorAll("#listaReportes button")[reporteActual - 1];
+            verReporte(reporteActual, boton);
+        }
+    </script>
+</body>
+</html>
